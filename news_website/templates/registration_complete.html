@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Регистрация завершена
+{% endblock %}
+
+{% block body %}
+    <div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Отличная работа!{{ user.first_name }}</h4>
+      <p>Теперь вы можете войти в свой профиль</p>
+    <p><a href="{% url "news_website:login" %}">Логин </a></p>
+     <hr>
+  <p class="mb-0"><a href="{% url "news_website:all_news" %}"> Вернуться на главную </a></p>
+    </div>
+{% endblock %}
+
+
+
+

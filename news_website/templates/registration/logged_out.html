@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Выйти
+{% endblock %}
+
+{% block body %}
+    <div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Вы вышли</h4>
+    <p>Вы можете заново войти в свой профиль: .</p>
+    <hr>
+    <p class="mb-0"><a href="{% url "news_website:login" %}">Войти</a><br></p>
+</div>
+{% endblock %}
+

@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    Поделиться материалом
+{% endblock %}
+
+{% block body %}
+    {% if not sent %}
+        <h1>Поделиться {{ news.title}} через электронную почту</h1>
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Поделиться">
+        </form>
+    {% else %}
+        Сообщение отправлено.
+    {% endif %}
+    <a href="{% url "news_website:all_news" %}"> Главная </a>
+{% endblock %}

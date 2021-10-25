@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+{% block title %}
+    Войти
+{% endblock %}
+
+{% block body %}
+    {% if form.errors %}
+        <div class="alert alert-success" role="alert">
+            Проверьте свои данные
+        </div>
+    {% else %}
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            <input type="submit" value="Login">
+        </form>
+        <a href="{% url "news_website:password_reset" %}"> Забыли пароль? </a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% load bootstrap4 %}
+{% load static %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MY NEWS BLOG{% endblock %}</title>
+
+</head>
+
+<body>
+    <header>
+    <nav class="navbar navbar-light bg-light">
+      <span class="navbar-brand mb-0 h1">Мой новостной блог</span>
+        {% if request.user.is_authenticated %}
+                <a href="{% url "news_website:logout" %}">Выйти </a>
+                <a href="{% url "news_website:profile" %}">Профиль </a>
+        {% else %}
+                <a href="{% url "news_website:login" %}">Войти </a><br>
+                <a href="{% url "news_website:register" %}">Регистрация </a><br>
+        {% endif %}
+    </nav>
+    </header>
+    {#    <nav><a href="{% url "news_website:all_news" %}">Главная </a>#}
+    {#         <a href="{% url "news_website:all_news_type" %}">Спорт </a>#}
+    {#         <a href="{% url "news_website:cinema_news" %}">Кино</a>#}
+    {#         <a href="{% url "news_website:music_news" %}">Музыка</a>#}
+    {#         <a href="{% url "news_website:events_news" %}">События </a>#}
+
+    <div class="container-flex m-4">
+        <div class="row">
+            <div class="col-sm-2 px-sm-0 pr-sm-1">
+                <div class="p-3 border border-primary rounded">
+                    {% block menu %}{% endblock %}
+                </div>
+            </div>
+            <div class="col-sm-10 border border-primary rounded">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    <div class="mini-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="copyright-text">
+                <p> 2021
+                  Created by<a href="#">AazzTech</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

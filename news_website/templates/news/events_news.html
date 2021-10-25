@@ -1,0 +1,19 @@
+{##}
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block title %}#}
+{#    События#}
+{#{% endblock %}#}
+{##}
+{#{% block body %}#}
+{#    {% for news in events_news %}#}
+{#        <h3>{{ news.title }}</h3>#}
+{#        <p> <img src="{{news.title_image.url}}" height="100" weight="110" alt="alt text"></p>#}
+{#        <p>#}
+{#            {{ news.body|truncatewords:5 }}#}
+{#        </p>#}
+{#        <a href="{{ news.get_absolute_url }}">go to material </a><br>#}
+{#        <hr>#}
+{#    {% endfor %}#}
+{##}
+{#{% endblock %}#}

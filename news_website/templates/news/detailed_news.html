@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ news.title }}
+{% endblock %}
+
+{% block body %}
+    <h4><a href="{% url "news_website:all_news_type" %}"> Главная </a></h4>
+    <div
+    <p> <img src="{{news.title_image.url}}" height="300"  class="card-img-top" alt="alt text" ></p>
+    <div></div>
+    <h1>{{ news.title }}</h1>
+    <p>{{ news.body }}</p>
+    <hr>
+    Опубликовано: {{ news.publish }}
+    </div>
+    <hr>
+    <a href="{% url "news_website:share_post" news.id %}">Поделиться</a>
+    <hr>
+    {% for comment in news.comments.all %}
+        {{ comment.name }} at {{ comment.created }}:<br>
+        {{ comment.body }} <br> <br>
+    {% endfor %}
+
+     <form action="" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Комментировать">
+     </form>
+{% endblock %}

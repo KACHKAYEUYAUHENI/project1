@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block body %}
-        <h1>Заполните поля</h1>
-        <form action="." method="post">
-            {{ form.as_p }}
-            {% csrf_token %}
-            <input type="submit" value="Регистрация">
-        </form>
+    <h1>Заполните поля</h1>
+    <form action="." method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Регистрация">
+    </form>
+    <p class="mb-0"><a href="{% url "news_website:all_news_type" %}"> Вернуться на главную </a></p>
 {% endblock %}

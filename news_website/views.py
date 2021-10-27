@@ -5,49 +5,20 @@ from . import forms
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.contrib import auth
+from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from taggit.models import Tag
 
 
 # Create your views here.
-SUBJECT = '{name} Wants to share material "{title}" with you.'
-BODY = ("{title} at {uri}. {name} shared material with you. "
-        "Please take"  "a look at it.")
 
-
-def all_news(request):
-    news = models.News.objects.all()
-    return render(request, "news/all_news.html",
-                  {"news": news})
+SUBJECT = "{name} Хочет показать рассказать вам новость {title}."
+BODY = ("{title} at {uri}. {name} отправил вам новость. "
+        "Пожалуйста, посмотрите её "  ".")
 
 
 
 
-
-def sport_news(request):
-    sport_news = models.News.objects.filter(news_type="Спорт")
-    return render(request, "news/sport_news.html",
-                  {"sport_news": sport_news})
-
-
-def music_news(request):
-    music_news = models.News.objects.filter(news_type="Музыка")
-    return render(request, "news/music_news.html",
-                  {"music_news": music_news})
-
-
-def events_news(request):
-    events_news = models.News.objects.filter(news_type="События")
-    return render(request, "news/events_news.html",
-                  {"events_news": events_news})
-
-
-def cinema_news(request):
-    cinema_news = models.News.objects.filter(news_type="Кино")
-    return render(request, "news/cinema_news.html",
-                  {"cinema_news": cinema_news})
-
-
+@login_required()
 def detailed_news(request, y, m, d, slug):
     news = get_object_or_404(models.News,
                              publish__year=y,
@@ -70,8 +41,7 @@ def detailed_news(request, y, m, d, slug):
                   {"news": news, 'form': form})
 
 
-
-def share_post(request,news_id,):
+def share_post(request, news_id,):
     news = get_object_or_404(models.News, id=news_id)
 
     sent = False
@@ -91,7 +61,7 @@ def share_post(request,news_id,):
                                name=cd['name'],
                                )
 
-            send_mail(subject, body, 'admin@my.com', [cd['send_adress'], ])
+            send_mail(subject, body, 'admin@my.com', [cd['send_adres'], ])
             sent = True
     else:
         form = forms.EmailMaterialForm()
@@ -99,7 +69,6 @@ def share_post(request,news_id,):
     return render(request,
                   "news/share.html",
                   {'news': news, 'form': form, 'sent': sent})
-
 
 
 def profile(request):
@@ -146,11 +115,28 @@ def edit_profile(request):
 
 
 def all_news_type(request):
-    news_type = models.NewsType.objects.all()
-    news = models.News.objects.all()
-    return render(request, "news_type/all_news_type.html",
-                  {'news_type': news_type, 'news': news})
+    query = request.GET.get("q", "")
+    if query:
+        news_type = models.NewsType.objects.all()
+        news = models.News.objects.filter(Q(title__icontains=query) | Q(body__icontains=query))
 
+    else:
+        news_type = models.NewsType.objects.all()
+        news = models.News.objects.all()
+
+    paginator = Paginator(news, 2)
+    page = request.GET.get('page', 1)
+
+    try:
+        news = paginator.get_page(page)
+    except PageNotAnInteger:
+        news = paginator.page(1)
+    except EmptyPage:
+        news = paginator.page(paginator.num_pages)
+
+
+    return render(request, "news_type/all_news_type.html",
+                    {"news_type": news_type, "news": news, "page": page})
 
 
 def detailed_news_type(request, slug):
@@ -160,4 +146,3 @@ def detailed_news_type(request, slug):
 
     return render(request, "news_type/detailed_news_type.html",
                   {"news_type": news_type, 'news_types': news_types})
-

@@ -1,39 +1,35 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    All Lessons
+    Все новости
+{% endblock %}
+
+{% block nav %}
+    <a href="{% url "news_website:all_news_type" %}"> Главная </a>
+    {% for news_type in news_type %}
+        <a class="nav-link active" href="{{ news_type.get_absolute_url }}">{{ news_type.title }}</a>
+    {% endfor %}
 {% endblock %}
 
 {% block body %}
-    <h4>Новости:</h4>
-        {% for news in news %}
-        <div class="card" style="width: 18rem;">
-        <img src="{{news.title_image.url}}" class="card-img-top" alt="alt text">
-            <div class="card-body">
-                <h5 class="card-title">{{ news.title }}</h5>
-                <p class="card-text">{{ news.body|truncatewords:5 }}</p>
-                <a href="{{ news.get_absolute_url }}" class="btn btn-primary">Читать полностью</a>
-            </div>
+        <div class ="text-center">
+            <h1>Новости:</h1>
         </div>
-    {% endfor %}
-{#    {% for news_type in news_type %}#}
-{#        <h3>{{ news_type.title }}</h3>#}
-{#        <p>#}
-{#            {{ news_type.description }}#}
-{#        </p>#}
-{#        <a href="{{ news_type.get_absolute_url }}"> {{ news_type.title }} </a><br>#}
-{#        <hr>#}
-{#    {% endfor %}#}
+        {% for news in news %}
+            <div class="card">
+            <img src="{{news.title_image.url}}" class="card-img-top" alt="alt text" height="300">
+                <div class="card-body">
+                    <h5 class="card-title">{{ news.title }}</h5>
+                    <p class="card-text">{{ news.body|truncatewords:5 }}</p>
+                    <a href="{{ news.get_absolute_url }}" class="btn btn-primary">Читать полностью</a>
+                </div>
+            </div>
+        {% endfor %}
+    <div class = "text-center">
+        {% include "pagination.html" with page=news %}
+    </div>
 {% endblock %}
 
 {% block menu %}
 
-    <h4>Тэги</h4>
-{% for news_type in news_type %}
-    <a class="nav-link active" href="{{ news_type.get_absolute_url }}">{{ news_type.title }}</a>
-{% endfor %}
-{#    <h4>Materials:</h4>#}
-{#        {% for news in news %}#}
-{#        <a class="nav-link active" href="{{ news.get_absolute_url }}">{{ news.title }}</a>#}
-{#    {% endfor %}#}
 {% endblock %}

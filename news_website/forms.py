@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class EmailMaterialForm(forms.Form):
     name = forms.CharField()
-    send_adress = forms.EmailField()
+    send_adres = forms.EmailField()
 
 
 class LoginForm(forms.Form):
@@ -44,4 +44,4 @@ class UserEditForm(forms.ModelForm):
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = models.Profile
-        fields = ('birth', 'photo')
+        fields = ('photo', )

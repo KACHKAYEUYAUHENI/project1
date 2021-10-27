@@ -16,14 +16,8 @@ class MyHackedView(auth_views.PasswordResetView):
 
 app_name = "news_website"
 urlpatterns = [
-    path("news/", views.all_news, name="all_news"),
-    path("sport_news", views.sport_news, name="sport_news"),
-    path("music_news", views.music_news, name="music_news"),
-    path("cinema_news", views.cinema_news, name="cinema_news"),
-    path("events_news", views.events_news, name="events_news"),
     path('news_type/<slug:slug>/', views.detailed_news_type, name='detailed_news_type'),
     path('', views.all_news_type, name='all_news_type'),
-
     path('<int:y>/<int:m>/<int:d>/<slug:slug>/', views.detailed_news,
          name="detailed_news"),
     path('<int:news_id>/share/', views.share_post, name="share_post"),

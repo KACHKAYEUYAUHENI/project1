@@ -3,8 +3,10 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -13,47 +15,35 @@
 </head>
 
 <body>
+{#header#}
     <header>
     <nav class="navbar navbar-light bg-light">
       <span class="navbar-brand mb-0 h1">Мой новостной блог</span>
+        <form action="{% url 'news_website:all_news_type' %}" method="get">
+            <input name="q" type="text" placeholder="Search...">
+        </form>
         {% if request.user.is_authenticated %}
-                <a href="{% url "news_website:logout" %}">Выйти </a>
-                <a href="{% url "news_website:profile" %}">Профиль </a>
+            <div class = "text-right">
+            <a href="{% url "news_website:logout" %}">Выйти </a>
+            <a href="{% url "news_website:profile" %}">Профиль </a>
+            </div>
         {% else %}
+                <div class = "text-right">
                 <a href="{% url "news_website:login" %}">Войти </a><br>
                 <a href="{% url "news_website:register" %}">Регистрация </a><br>
+            </div>
         {% endif %}
     </nav>
     </header>
-    {#    <nav><a href="{% url "news_website:all_news" %}">Главная </a>#}
-    {#         <a href="{% url "news_website:all_news_type" %}">Спорт </a>#}
-    {#         <a href="{% url "news_website:cinema_news" %}">Кино</a>#}
-    {#         <a href="{% url "news_website:music_news" %}">Музыка</a>#}
-    {#         <a href="{% url "news_website:events_news" %}">События </a>#}
-
-    <div class="container-flex m-4">
-        <div class="row">
-            <div class="col-sm-2 px-sm-0 pr-sm-1">
-                <div class="p-3 border border-primary rounded">
-                    {% block menu %}{% endblock %}
-                </div>
-            </div>
-            <div class="col-sm-10 border border-primary rounded">
-                {% block body %}{% endblock %}
-            </div>
+{#    navbar#}
+    <nav class="navbar navbar-light bg-light">
+        {% block nav %}{% endblock %}
+    </nav>
+{#mainbody#}
+    <div class="row ">
+        <div class="col"></div>
+        <div class="col-8">
+            {% block body %}{% endblock %}
         </div>
-    <div class="mini-footer">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="copyright-text">
-                <p> 2021
-                  Created by<a href="#">AazzTech</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="col"></div>
     </div>
-</body>
-</html>

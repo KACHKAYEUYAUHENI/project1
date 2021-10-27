@@ -3,25 +3,8 @@
 {% block title %}
     {{ news_type.title }}
 {% endblock %}
-
-{% block body %}
-    <h1>{{ news_type.title }}</h1>
-    <p>{{ news_type.description }}</p>
-    {% for news in news_type.news.all %}
-        <div class="card" style="width: 18rem;">
-        <img src="{{news.title_image.url}}" class="card-img-top" alt="alt text">
-            <div class="card-body">
-                <h5 class="card-title">{{ news.title }}</h5>
-                <p class="card-text">{{ news.body|truncatewords:5 }}</p>
-                <a href="{{ news.get_absolute_url }}" class="btn btn-primary">Читать полностью</a>
-            </div>
-        </div>
-    {% endfor %}
-
-{% endblock %}
-    <h4>Тэги</h4>
-
-{% block menu %}
+{% block nav %}
+    <a href="{% url "news_website:all_news_type" %}"> Главная </a>
     {% for news_type_loop in news_types %}
         {% if news_type_loop == news_type %}
             <a class="nav-link disabled" href="{{ news_type_loop.get_absolute_url }}">{{ news_type_loop.title }}</a>
@@ -30,6 +13,21 @@
         {% endif %}
     {% endfor %}
 {% endblock %}
+{% block body %}
+    <div class="text-center">
+            <h1> {{ news_type.title }} </h1>
+            <h2>{{ news_type.description }}</h2>
+    </div>
+    <hr>
+    {% for news in news_type.news.all %}
+        <div class="card">
+            <img src="{{news.title_image.url}}" class="card-img-top" alt="alt text" height="300">
+            <div class="card-body">
+                <h5 class="card-title">{{ news.title }}</h5>
+                <p class="card-text">{{ news.body|truncatewords:5 }}</p>
+                <a href="{{ news.get_absolute_url }}" class="btn btn-primary">Читать полностью</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
 
-{#{% for news_type in news_type %}#}
-{#        <a class="nav-link active" href="{{ news_type.get_absolute_url }}">{{ news_type.title }}</a>#}

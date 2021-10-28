@@ -24,11 +24,11 @@
         </form>
         {% if request.user.is_authenticated %}
             <div class = "text-right">
-            <a href="{% url "news_website:logout" %}">Выйти </a>
-            <a href="{% url "news_website:profile" %}">Профиль </a>
+                <a href="{% url "news_website:logout" %}">Выйти </a>
+                <a href="{% url "news_website:profile" %}">Профиль </a>
             </div>
         {% else %}
-                <div class = "text-right">
+            <div class = "text-right">
                 <a href="{% url "news_website:login" %}">Войти </a><br>
                 <a href="{% url "news_website:register" %}">Регистрация </a><br>
             </div>

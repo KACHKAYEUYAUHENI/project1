@@ -16,8 +16,6 @@ BODY = ("{title} at {uri}. {name} отправил вам новость. "
         "Пожалуйста, посмотрите её "  ".")
 
 
-
-
 @login_required()
 def detailed_news(request, y, m, d, slug):
     news = get_object_or_404(models.News,
@@ -133,7 +131,6 @@ def all_news_type(request):
         news = paginator.page(1)
     except EmptyPage:
         news = paginator.page(paginator.num_pages)
-
 
     return render(request, "news_type/all_news_type.html",
                     {"news_type": news_type, "news": news, "page": page})

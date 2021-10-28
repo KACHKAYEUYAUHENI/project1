@@ -7,9 +7,9 @@
 
 {% block body %}
     <h4><a href="{% url "news_website:all_news_type" %}"> Главная </a></h4>
-    <div
+    <div>
     <p> <img src="{{news.title_image.url}}" height="300"  class="card-img-top" alt="alt text" ></p>
-    <div></div>
+    </div>
     <h1>{{ news.title }}</h1>
     <p>{{ news.body }}</p>
     <hr>

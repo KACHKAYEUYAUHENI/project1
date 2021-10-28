@@ -9,7 +9,8 @@
     <h4 class="alert-heading">Вы вышли</h4>
     <p>Вы можете заново войти в свой профиль: .</p>
     <hr>
-    <p class="mb-0"><a href="{% url "news_website:login" %}">Войти</a><br></p>
+    <a class="mb-0"><a href="{% url "news_website:login" %}">Войти</a><br>
+    <a href="{% url "news_website:all_news_type" %}"> Вернуться на главную </a>
 </div>
 {% endblock %}
 

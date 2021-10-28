@@ -11,9 +11,9 @@
             </div>
             <div class="col">
                 <p>Приветствую,{{ user.first_name }}, {{ user.last_name }}</p>
-                <a href="{% url "news_website:edit_profile" %}">Изменить профиль </a>
-                <a href="{% url "news_website:password_change" %}">Сменить пароль </a>
-                <a href="{% url "news_website:all_news_type" %}"> Вернуться на главную </a>
+                <a href="{% url "news_website:edit_profile" %}">Изменить профиль </a><hr>
+                <a href="{% url "news_website:password_change" %}">Сменить пароль </a><hr>
+                <a href="{% url "news_website:all_news_type" %}"> Вернуться на главную </a><hr>
             </div>
         </div>
 {% endblock %}

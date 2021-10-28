@@ -54,7 +54,6 @@ class Profile(models.Model):
     photo = models.ImageField(upload_to="user/%Y/%m/%d", blank=True)
 
 
-
 class NewsType(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
